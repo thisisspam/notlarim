@@ -1,0 +1,34 @@
+VBA Makrosu ile Satırları Rastgele Karıştırmak
+Bu işlemi daha hızlı yapmak için bir makro da yazabilirsiniz. Aşağıdaki makro, belirlediğiniz aralıktaki satırları rastgele karıştıracaktır:
+
+Sub SatirlariKaristir()
+    Dim rng As Range
+    Dim i As Long
+    Dim j As Long
+    Dim temp As Variant
+    Dim randomIndex As Long
+    
+    ' Hücre aralığını belirleyin (A-D sütunları, örnek olarak A1:D10 aralığı kullanılıyor)
+    Set rng = Range("A1:D10") ' Bu aralığı ihtiyacınıza göre değiştirin
+    
+    ' Döngüyle satırları karıştır
+    For i = rng.Rows.Count To 2 Step -1
+        randomIndex = Int((i - 1 + 1) * Rnd + 1)
+        
+        ' Satırları değiştir
+        For j = 1 To rng.Columns.Count
+            temp = rng.Cells(i, j).Value
+            rng.Cells(i, j).Value = rng.Cells(randomIndex, j).Value
+            rng.Cells(randomIndex, j).Value = temp
+        Next j
+    Next i
+End Sub
+
+Kullanım Adımları:
+Excel'de Alt + F11 tuşlarına basarak VBA Editörünü açın.
+Insert > Module seçeneğiyle yeni bir modül ekleyin.
+Yukarıdaki VBA kodunu modüle yapıştırın.
+VBA editöründen çıkın (Alt + Q).
+Excel'de Alt + F8 tuşlarına basarak "SatirlariKaristir" makrosunu çalıştırın.
+Bu makro, seçtiğiniz hücre aralığındaki satırları rastgele karıştırır ve sütunlar arasındaki ilişkiyi korur. Örneğin, A1
+satırındaki veriler her zaman bir arada hareket eder.
